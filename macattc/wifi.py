@@ -283,13 +283,3 @@ def main():
 				print ("Unknown Operating system")
 			print ("Changing MAC to: " + args.mac)
 			print ("Remember, it may take over 30 seconds to reconnect after your MAC address is changed.")
-
-
-# if __name__ == '__main__':
-
-# 	try:
-# 		main(sys.argv)
-# 	except KeyboardInterrupt:
-# 		pass
-# 	sys.exit()
-
