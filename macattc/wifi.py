@@ -201,7 +201,7 @@ def changeMac(sources, verbose):
 		print ("-------------------Ideal MAC----------------------")
 		print ("Ideal to change MAC to: " + high_key[1])
 		print ("-------------------Change MAC---------------------")
-		print ("Run command: python wifi.py -changeMAC [MAC Address]")
+		print ("Run command: sudo macattc -changeMAC [MAC Address]")
 		print ("Replace [MAC Address] with the ideal MAC address or another of your choice.")
 		print ("Remember, it may take over 30 seconds to reconnect after your MAC address is changed.")
 
