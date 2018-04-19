@@ -1,2 +1,2 @@
-- pip dependecies `[tqdm, netifaces, netaddr, netifaces, wireless]`
-- run with sudo `sudo python wifi.py`
+- install `pip install macattc`
+- run with sudo `sudo macattc`
