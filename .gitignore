@@ -1,0 +1,4 @@
+*.txt
+*.pypirc
+
+__pycache__

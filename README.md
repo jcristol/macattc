@@ -1,0 +1,2 @@
+- pip dependecies `[tqdm, netifaces, netaddr, netifaces, wireless]`
+- run with sudo `sudo python wifi.py`
