@@ -1,2 +1,2 @@
 - install `pip install macattc`
-- run with sudo `sudo macattc`
+- run `macattc`
