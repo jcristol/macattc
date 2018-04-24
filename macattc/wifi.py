@@ -226,6 +226,9 @@ def main():
 						help='Which wireless interface to use.')
 	parser.add_argument('-v', '--verbose',
 						action='store_true')
+	parser.add_argument('-f', '--file'
+						action='store_true',
+						help='logs the trace.txt and nmap.txt')
 	parser.add_argument('-changeMAC', '--mac',
 						default=None,
 						type=str,
@@ -283,3 +286,9 @@ def main():
 				print ("Unknown Operating system")
 			print ("Changing MAC to: " + args.mac)
 			print ("Remember, it may take over 30 seconds to reconnect after your MAC address is changed.")
+			if os.path.exists('trace.txt') and args.file:
+				os.remove('trace.txt')
+			if os.path.exists('nmap.txt') and args.file:
+				os.remove('nmap.txt')
+
+			
