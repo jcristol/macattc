@@ -226,7 +226,7 @@ def main():
 						help='Which wireless interface to use.')
 	parser.add_argument('-v', '--verbose',
 						action='store_true')
-	parser.add_argument('-f', '--file'
+	parser.add_argument('-f', '--file',
 						action='store_true',
 						help='logs the trace.txt and nmap.txt')
 	parser.add_argument('-changeMAC', '--mac',
