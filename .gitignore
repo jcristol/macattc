@@ -2,3 +2,6 @@
 *.pypirc
 
 __pycache__
+
+dist
+MANIFEST
