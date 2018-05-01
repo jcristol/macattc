@@ -39,7 +39,6 @@ def getMyMac():
 def collectDataWShark (packets, interface, sources):
 	myIP = (socket.gethostbyname(socket.gethostname()))
 	cmd = 'sudo tshark -i {} -c {}'.format(interface, packets).split()
-	print (cmd)
 	sharkSources = {}
 	try:
 		bar_format = '{n_fmt}/{total_fmt} {bar} {remaining}'
