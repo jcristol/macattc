@@ -27,13 +27,14 @@ def run_process(cmd, err=False):
 
 def getMyMac():
 	wireless = Wireless()
-	ifaces = wireless.interfaces()
-	iface = ifaces[-1]
 	try:
+		ifaces = wireless.interfaces()
+		iface = ifaces[-1]
 		mac = (netifaces.ifaddresses(iface)[netifaces.AF_LINK][0]['addr'])
 		return mac
 	except:
-		return (':'.join(re.findall('..', '%012x' % get_mac())))
+		print("Please manually select your interface using ifconfig or ipconfig using the -i flag")
+		sys.exit(-1)
 
 
 def collectDataWShark (packets, interface, sources):
@@ -146,7 +147,7 @@ def collectDataTCP(packets, interface, sources):
 		if progress.n < progress.total:
 			print('Sniffing finished early.')
 	except subprocess.CalledProcessError:
-		eprint('Error collecting packets.')
+		print('Error collecting packets.')
 		raise
 	except KeyboardInterrupt:
 		pass
