@@ -26,8 +26,8 @@ def run_process(cmd, err=False):
 
 
 def getMyMac():
-	wireless = Wireless()
 	try:
+		wireless = Wireless()
 		ifaces = wireless.interfaces()
 		iface = ifaces[-1]
 		mac = (netifaces.ifaddresses(iface)[netifaces.AF_LINK][0]['addr'])
