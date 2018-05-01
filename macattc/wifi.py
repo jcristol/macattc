@@ -39,19 +39,31 @@ def getMyMac():
 
 def collectDataWShark (packets, interface, sources):
 	myIP = (socket.gethostbyname(socket.gethostname()))
-	cmd = 'sudo tshark -i {} -c {}'.format(interface, packets).split()
+	cmd = 'sudo tshark -i {} -c {} -e eth.src -e eth.dst -e ip.src -e ip.dst  -T fields'.format(interface, packets).split()
 	sharkSources = {}
 	try:
 		bar_format = '{n_fmt}/{total_fmt} {bar} {remaining}'
 		progress = tqdm(run_process(cmd), total=packets, bar_format=bar_format)
 		for line in progress:
-			line = line.decode()
-			#print (line)
-			#m = re.search(r'[a-fA-F0-9]{2}[:][a-fA-F0-9]{2}[:][a-fA-F0-9]{2}[:][a-fA-F0-9]{2}[:][a-fA-F0-9]{2}[:][a-fA-F0-9]{2}', line)
-			ip = re.search(r'[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}', line)
-			#if m and ip:
-			if ip and ip.group()[0:5] == myIP[0:5]:
-					source = ("MAC Address : ", "N/A" ,"    IPv4 Address : " , ip.group())
+			data = line.split()
+			if len(data) == 4:
+				ip = data[2]
+				mac = data[0]
+			if ip and mac and ip[0:5] == myIP[0:5]:
+					source = ("MAC Address : "+ mac +"    IPv4 Address : " +ip)
+					if source not in sources:
+						sources[source] = 1
+					else:
+						sources[source] += 1
+					if source not in sharkSources:
+						sharkSources[source] = 1
+					else:
+						sharkSources[source] += 1
+			if len(data) == 4:
+				ip = data[3]
+				mac = data[1]
+			if ip and mac and ip[0:5] == myIP[0:5]:
+					source = ("MAC Address : "+ mac+"    IPv4 Address : " + ip)
 					if source not in sources:
 						sources[source] = 1
 					else:
@@ -64,7 +76,7 @@ def collectDataWShark (packets, interface, sources):
 		if progress.n < progress.total:
 			print('Sniffing finished early.')
 	except subprocess.CalledProcessError:
-		eprint('Error collecting packets.')
+		print('Error collecting packets.')
 		raise
 	except KeyboardInterrupt:
 		pass
