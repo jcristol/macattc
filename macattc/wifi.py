@@ -252,9 +252,7 @@ def main():
 		myIP = (socket.gethostbyname(socket.gethostname()))
 		mac = getMyMac()
 		allSources = {}
-		print (args)
 		verbose = args.verbose
-		print (verbose)
 		print ("-------------------Previous data -----------------")
 		print ("Previous MAC address: " + mac + "        My IP:  " + myIP)
 		print ("-------------------TCP data collection------------")
