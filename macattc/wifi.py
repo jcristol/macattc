@@ -44,6 +44,7 @@ def collectDataWShark (packets, interface, sources):
 	try:
 		bar_format = '{n_fmt}/{total_fmt} {bar} {remaining}'
 		progress = tqdm(run_process(cmd), total=packets, bar_format=bar_format)
+		ip = None
 		for line in progress:
 			data = line.split()
 			if len(data) == 4:
