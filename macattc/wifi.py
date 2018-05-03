@@ -40,6 +40,7 @@ def getMyMac():
 def collectDataWShark (packets, interface, sources):
 	myIP = (socket.gethostbyname(socket.gethostname()))
 	cmd = 'sudo tshark -i {} -c {} -e eth.src -e eth.dst -e ip.src -e ip.dst  -T fields'.format(interface, packets).split()
+	#print (cmd)
 	sharkSources = {}
 	try:
 		bar_format = '{n_fmt}/{total_fmt} {bar} {remaining}'
@@ -47,32 +48,34 @@ def collectDataWShark (packets, interface, sources):
 		ip = None
 		for line in progress:
 			data = line.split()
-			if len(data) == 4:
-				ip = data[2]
-				mac = data[0]
-			if ip and mac and ip[0:5] == myIP[0:5]:
-					source = ("MAC Address : "+ mac +"    IPv4 Address : " +ip)
-					if source not in sources:
-						sources[source] = 1
-					else:
-						sources[source] += 1
-					if source not in sharkSources:
-						sharkSources[source] = 1
-					else:
-						sharkSources[source] += 1
-			if len(data) == 4:
-				ip = data[3]
-				mac = data[1]
-			if ip and mac and ip[0:5] == myIP[0:5]:
-					source = ("MAC Address : "+ mac+"    IPv4 Address : " + ip)
-					if source not in sources:
-						sources[source] = 1
-					else:
-						sources[source] += 1
-					if source not in sharkSources:
-						sharkSources[source] = 1
-					else:
-						sharkSources[source] += 1
+
+			if (len(data) == 4):
+				ip1 = data[2]
+				mac1 = data[0]
+				ip2 = data[3]
+				mac2 = data[1]
+				if (ip1[0:5] == myIP[0:5]):
+						source = ("MAC Address : ", mac1 ,"    IPv4 Address : " ,ip1)
+						#print (source)
+						if source not in sources:
+							sources[source] = 1
+						else:
+							sources[source] += 1
+						if source not in sharkSources:
+							sharkSources[source] = 1
+						else:
+							sharkSources[source] += 1
+				if (ip2[0:5] == myIP[0:5]):
+						source = ("MAC Address : ", mac2,"    IPv4 Address : " , ip2)
+						#print (source)
+						if source not in sources:
+							sources[source] = 1
+						else:
+							sources[source] += 1
+						if source not in sharkSources:
+							sharkSources[source] = 1
+						else:
+							sharkSources[source] += 1
 
 		if progress.n < progress.total:
 			print('Sniffing finished early.')
@@ -81,6 +84,7 @@ def collectDataWShark (packets, interface, sources):
 		raise
 	except KeyboardInterrupt:
 		pass
+	#print (sources, sharkSources)
 	return sharkSources
 
 
